@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rajan.blog.backend.payloads.ApiResponse;
 import com.rajan.blog.backend.payloads.PostDto;
+import com.rajan.blog.backend.payloads.PostResponse;
 import com.rajan.blog.backend.services.PostService;
 
 @RestController
@@ -55,10 +57,12 @@ public class PostController {
 	
 	// get all post
 	@GetMapping("/posts")
-	public ResponseEntity<List<PostDto>> getAllPosts()
+	public ResponseEntity<PostResponse> getAllPosts(
+			@RequestParam(value = "pageNumber", defaultValue = "0",required = false)Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "5",required = false)Integer pageSize)
 	{
-		  List<PostDto> allpost = this.postService.getAllpost();
-		  return new ResponseEntity<List<PostDto>>(allpost, HttpStatus.OK);
+		   PostResponse postResponse = this.postService.getAllpost(pageNumber, pageSize);
+		  return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
 	
 	//get post by post id;
