@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.rajan.blog.backend.entities.Post;
 import com.rajan.blog.backend.payloads.PostDto;
+import com.rajan.blog.backend.payloads.PostResponse;
 
 public interface PostService {
 	
@@ -15,7 +16,8 @@ public interface PostService {
 	void deletePost(Integer postId);
 	
 	
-	List<PostDto> getAllpost();
+	//List<PostDto> getAllpost(Integer pageNumber, Integer pageSize);
+	PostResponse getAllpost(Integer pageNumber, Integer pageSize);
 	
 	PostDto getPostById(Integer postId);
 	

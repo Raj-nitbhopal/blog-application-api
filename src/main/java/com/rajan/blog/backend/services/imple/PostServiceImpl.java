@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.rajan.blog.backend.entities.Category;
@@ -13,6 +16,7 @@ import com.rajan.blog.backend.entities.Post;
 import com.rajan.blog.backend.entities.User;
 import com.rajan.blog.backend.exceptions.ResourceNotFoundException;
 import com.rajan.blog.backend.payloads.PostDto;
+import com.rajan.blog.backend.payloads.PostResponse;
 import com.rajan.blog.backend.repositories.CategoryRepo;
 import com.rajan.blog.backend.repositories.PostRepo;
 import com.rajan.blog.backend.repositories.UserRepo;
@@ -72,11 +76,24 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllpost() {
+	public PostResponse getAllpost(Integer pageNumber, Integer pageSize) {
+//		int pageNumber=1;
+//		int pageSize = 5;
+		Pageable P = PageRequest.of(pageNumber, pageSize);
 		
-		List<Post> allPosts = this.postRepo.findAll();
+		Page<Post> pagePosts = this.postRepo.findAll(P);
+		List<Post> allPosts = pagePosts.getContent();
 		List<PostDto> postDtos = allPosts.stream().map((post)->this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
-		return postDtos;
+		
+		PostResponse postResponse = new PostResponse();
+		postResponse.setContent(postDtos);
+		postResponse.setPageNumber(pagePosts.getNumber());
+		postResponse.setPageSize(pagePosts.getSize());
+		postResponse.setTotalElement(pagePosts.getTotalElements());
+		postResponse.setTotalPages(pagePosts.getTotalPages());
+		postResponse.setLastPage(pagePosts.isLast());
+		
+		return postResponse;
 	}
 
 	@Override
