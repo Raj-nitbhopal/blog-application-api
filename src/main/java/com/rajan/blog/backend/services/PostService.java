@@ -17,7 +17,7 @@ public interface PostService {
 	
 	
 	//List<PostDto> getAllpost(Integer pageNumber, Integer pageSize);
-	PostResponse getAllpost(Integer pageNumber, Integer pageSize);
+	PostResponse getAllpost(Integer pageNumber, Integer pageSize,String sortBy, String sortDir);
 	
 	PostDto getPostById(Integer postId);
 	
@@ -29,5 +29,5 @@ public interface PostService {
 	
 	//search post
 	
-	List<Post> searchPost(String keyword);
+	List<PostDto> searchPost(String keyword);
 }
