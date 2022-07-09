@@ -42,10 +42,13 @@ public class PostController {
 	
 	//get post by user id
 	@GetMapping("/user/{userId}/posts")
-	public ResponseEntity<List<PostDto>> getPostByuser(@PathVariable Integer userId)
+	public ResponseEntity<PostResponse> getPostByuser(
+			@PathVariable Integer userId,
+			@RequestParam(value="pageNumber", defaultValue = "0", required = false)Integer pageNumber,
+			@RequestParam(value="pageSize", defaultValue = "5", required = false)Integer pageSize)
 	{
-		List<PostDto> posts = this.postService.getPostByUser(userId);
-		return new ResponseEntity<List<PostDto>>(posts, HttpStatus.OK);
+		PostResponse posts = this.postService.getPostByUser(userId,pageNumber, pageSize);
+		return new ResponseEntity<PostResponse>(posts, HttpStatus.OK);
 	}
 	
 	@GetMapping("/category/{categoryId}/posts")
@@ -56,7 +59,7 @@ public class PostController {
 	}
 	
 	// get all post
-	@GetMapping("/posts")
+	@GetMapping("/posts") 
 	public ResponseEntity<PostResponse> getAllPosts(
 			@RequestParam(value = "pageNumber", defaultValue = "0",required = false)Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "5",required = false)Integer pageSize)
