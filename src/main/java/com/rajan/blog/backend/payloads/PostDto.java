@@ -1,6 +1,10 @@
 package com.rajan.blog.backend.payloads;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.rajan.blog.backend.entities.Comment;
 
 //import com.rajan.blog.backend.entities.Category;
 //import com.rajan.blog.backend.entities.User;
@@ -26,5 +30,5 @@ public class PostDto {
 	
 	private UserDto user;
 	
-	
+	private Set<CommentDto> comments = new HashSet<>();
 }
