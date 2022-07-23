@@ -1,0 +1,9 @@
+package com.rajan.blog.backend.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.rajan.blog.backend.entities.Role;
+
+public interface RoleRepo extends JpaRepository<Role, Integer> {
+
+}

@@ -7,6 +7,8 @@ import com.rajan.blog.backend.payloads.UserDto;
 
 public interface UserServices {
 	
+	UserDto registerNewUser(UserDto user);
+	
 	UserDto createUser(UserDto  user);
 	
 	UserDto updateUser(UserDto user, Integer userId);
