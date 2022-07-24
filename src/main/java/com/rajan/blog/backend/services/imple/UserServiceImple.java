@@ -119,7 +119,7 @@ public class UserServiceImple implements UserServices {
 		user.setPassword(this.passwordEncoder .encode(user.getPassword()));
 		
 		//roles
-		Role role = this.roleRepo.findById(AppConstant.ROLE_USER).get();
+		Role role = this.roleRepo.findById(AppConstant.NORMAl_USER).get();
 		
 		user.getRoles().add(role);
 		User newUser = this.userRepo.save(user);

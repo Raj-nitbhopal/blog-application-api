@@ -50,7 +50,7 @@ public class UserController {
 	
 	
 	//DELETE - Delete user
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<ApiResponse> deleteUser(@PathVariable("userId") Integer uId)
 	{
